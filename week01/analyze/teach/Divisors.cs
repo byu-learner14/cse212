@@ -1,0 +1,46 @@
+public static class Divisors {
+    /// <summary>
+    /// Entry point for the Divisors class
+    /// </summary>
+    public static void Run() {
+        List<int> list = FindDivisors(80);
+        Console.WriteLine("<List>{" + string.Join(", ", list) + "}"); // <List>{1, 2, 4, 5, 8, 10, 16, 20, 40}
+
+        List<int> list1 = FindDivisors(79);
+        Console.WriteLine("<List>{" + string.Join(", ", list1) + "}"); // <List>{1}
+    }
+
+    /// <summary>
+    /// Create a list of all divisors for a number including 1
+    /// and excluding the number itself. Modulo will be used
+    /// to test divisibility.
+    /// </summary>
+    /// <param name="number">The number to find the divisor</param>
+    /// <returns>List of divisors</returns>
+    private static List<int> FindDivisors(int number) {
+        // Plan for FindDivisors:
+        // 1. Create an empty List<int> to store the divisors
+        // 2. Always add 1 because 1 divides every number
+        // 3. Loop from 2 up to number/2 (inclusive)
+        // 4. Use modulo (%) to check if i divides the number evenly
+        // 5. If it does, add i to the results list
+        // 6. Return the completed list (do not include the number itself)
+
+        List<int> results = new();
+
+        if (number <= 1)
+            return results;
+
+        results.Add(1);  // 1 is always a divisor
+
+        for (int i = 2; i <= number / 2; i++)
+        {
+            if (number % i == 0)
+            {
+                results.Add(i);
+            }
+        }
+
+        return results;
+    }
+}
