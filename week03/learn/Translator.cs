@@ -6,6 +6,7 @@ public class Translator
         englishToGerman.AddWord("House", "Haus");
         englishToGerman.AddWord("Car", "Auto");
         englishToGerman.AddWord("Plane", "Flugzeug");
+
         Console.WriteLine(englishToGerman.Translate("Car"));     // Auto
         Console.WriteLine(englishToGerman.Translate("Plane"));   // Flugzeug
         Console.WriteLine(englishToGerman.Translate("Train"));   // ???
@@ -18,7 +19,8 @@ public class Translator
     /// </summary>
     public void AddWord(string fromWord, string toWord)
     {
-        _words[fromWord] = toWord;   // This will overwrite if the word already exists
+        // If the word already exists, this will overwrite it (as expected)
+        _words[fromWord] = toWord;
     }
 
     /// <summary>
@@ -26,11 +28,13 @@ public class Translator
     /// </summary>
     public string Translate(string fromWord)
     {
+        // If the word exists in our dictionary, return the translation
         if (_words.ContainsKey(fromWord))
         {
             return _words[fromWord];
         }
 
-        return "???";   // No translation found
+        // Otherwise return "???"
+        return "???";
     }
 }
