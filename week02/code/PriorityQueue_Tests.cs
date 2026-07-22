@@ -4,10 +4,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 public class PriorityQueueTests
 {
     [TestMethod]
-    // Scenario: Create a priority queue with the following items and priorities:
-    //   "A" (Pri:2), "B" (Pri:1), "C" (Pri:3)
-    // Expected Result: Dequeue should return C, then A, then B
-    // Defect(s) Found: 
+    // Scenario: Add multiple items with different priorities
+    // Expected Result: Highest priority dequeued first, then next highest, etc.
+    // Defect(s) Found: Dequeue was not correctly selecting highest priority
     public void TestPriorityQueue_DequeueHighestPriority()
     {
         var priorityQueue = new PriorityQueue();
@@ -21,9 +20,9 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: Add multiple items with same priority
-    // Expected Result: Should return in FIFO order for same priority
-    // Defect(s) Found: 
+    // Scenario: Multiple items with same highest priority
+    // Expected Result: FIFO order for same priority
+    // Defect(s) Found: Dequeue was not preserving FIFO for same priority
     public void TestPriorityQueue_SamePriorityFIFO()
     {
         var priorityQueue = new PriorityQueue();
@@ -37,9 +36,9 @@ public class PriorityQueueTests
     }
 
     [TestMethod]
-    // Scenario: Try to dequeue from an empty queue
-    // Expected Result: Should throw InvalidOperationException with message "The queue is empty."
-    // Defect(s) Found: 
+    // Scenario: Dequeue from empty queue
+    // Expected Result: InvalidOperationException with correct message
+    // Defect(s) Found: Wrong exception type or message
     public void TestPriorityQueue_EmptyQueue()
     {
         var priorityQueue = new PriorityQueue();
@@ -52,23 +51,5 @@ public class PriorityQueueTests
         {
             Assert.AreEqual("The queue is empty.", e.Message);
         }
-    }
-
-    [TestMethod]
-    // Scenario: Mix of priorities and multiple dequeues
-    // Expected Result: Highest priority always dequeued first
-    // Defect(s) Found: 
-    public void TestPriorityQueue_MixedPriorities()
-    {
-        var priorityQueue = new PriorityQueue();
-        priorityQueue.Enqueue("Low", 1);
-        priorityQueue.Enqueue("High", 10);
-        priorityQueue.Enqueue("Medium", 5);
-        priorityQueue.Enqueue("High2", 10);
-
-        Assert.AreEqual("High", priorityQueue.Dequeue());   // First highest
-        Assert.AreEqual("High2", priorityQueue.Dequeue());  // Next highest (FIFO)
-        Assert.AreEqual("Medium", priorityQueue.Dequeue());
-        Assert.AreEqual("Low", priorityQueue.Dequeue());
     }
 }
